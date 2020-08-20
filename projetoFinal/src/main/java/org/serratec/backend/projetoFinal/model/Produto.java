@@ -9,6 +9,9 @@ public class Produto {
 	private Integer quantidadeEstoque;
 	private Date dataFabricacao;
 	private Double valorUnitario;
+	private Integer codigoPedido;
+	private Integer codigoFuncionario;
+	
 	public Integer getCodigoProduto() {
 		return codigoProduto;
 	}
@@ -44,6 +47,18 @@ public class Produto {
 	}
 	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
+	}
+	public Integer getCodigoPedido() {
+		return codigoPedido;
+	}
+	public void setCodigoPedido(Integer codigoPedido) {
+		this.codigoPedido = codigoPedido;
+	}
+	public Integer getCodigoFuncionario() {
+		return codigoFuncionario;
+	}
+	public void setCodigoFuncionario(Integer codigoFuncionario) {
+		this.codigoFuncionario = codigoFuncionario;
 	}
 	
 }
