@@ -1,13 +1,39 @@
-package org.serratec.backend.projetoFinal;
+package org.serratec.backend.projetoFinal.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ENDERECO")
 public class Endereco {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigoEndereco;
+	
+	@Column(name="CEP", nullable = false, length = 10)
 	private String cep;
+	
+	@Column(name="RUA", nullable = false, length = 255)
 	private String rua;
+	
+	@Column(name="NUMERO", length = 10)
 	private Integer numero;
+	
+	@Column(name="COMPLEMENTO", length = 255)
 	private String complemento;
+	
+	@Column(name="BAIRRO", nullable = false, length = 50)
 	private String bairro;
+	
+	@Column(name="CIDADE", nullable = false, length = 50)
 	private String cidade;
+	
+	@Column(name="ESTADO", nullable = false, length = 2)
 	private String estado;
 	
 	public String getCep() {

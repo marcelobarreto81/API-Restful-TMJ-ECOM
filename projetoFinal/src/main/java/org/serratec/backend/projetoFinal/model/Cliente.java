@@ -2,16 +2,48 @@ package org.serratec.backend.projetoFinal.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+@Entity
+@Table(name="CLIENTE")
 public class Cliente {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigoCliente;
+	
+	@Column(name="NOME_COMPLETO", nullable = false, length = 255)
 	private String nomeCompleto;
+	
+	@Column(name="NOME_USUARIO", nullable = false, length = 25)
 	private String nomeUsuario;
+	
+	@Column(name="EMAIL", nullable = false, length = 255)
 	private String email;
+	
+	@Column(name="SENHA", nullable = false, length = 25)
 	private String senha;
+	
+	@Column(name="CPF", nullable = false, length = 14)
 	private String cpf;
+	
+	@Column(name="DATA_NASCIMENTO")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(iso = ISO.DATE)
 	private Date dataNascimento ;
-	private String telefone;
+	
+	@Column(name="TELEFONE", nullable = false, length = 17)  
+ 	private String telefone;
 	
 	public Integer getCodigoCliente() {
 		return codigoCliente;
