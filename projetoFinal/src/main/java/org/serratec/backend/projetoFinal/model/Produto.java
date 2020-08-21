@@ -25,7 +25,7 @@ public class Produto {
 	@Column(name="NOME_COMPLETO", nullable = false, length = 255)
 	private String nome;
 	
-	@Column(name="NOME_COMPLETO", nullable = false, length = 255)
+	@Column(name="DESCRICAO", nullable = false, length = 255)
 	private String descricao;
 	
 	@Column(name="QUANTIDADE_ESTOQUE", nullable = false)
