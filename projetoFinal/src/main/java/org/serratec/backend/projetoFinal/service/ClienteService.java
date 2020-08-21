@@ -34,40 +34,40 @@ public class ClienteService {
 		throw new ClienteNotFoundException("Cliente com id " + codigo + " não encontrada");
 	}
 	
-	public Cliente substituir(Integer codigo, Cliente Cliente) throws ParametroObrigatorioException, ClienteNotFoundException {
-		if(Cliente == null) throw new ParametroObrigatorioException("Campo 'Cliente' é obrigatório");
+	public Cliente substituir(Integer codigo, Cliente cliente) throws ParametroObrigatorioException, ClienteNotFoundException {
+		if(cliente == null) throw new ParametroObrigatorioException("Campo 'Cliente' é obrigatório");
 		
-		Cliente ClienteNoBanco = listarPorCodigo(codigo);
+		Cliente clienteNoBanco = listarPorCodigo(codigo);
 		
-		if(Cliente.getNomeCompleto() != null) {
-			ClienteNoBanco.setNomeCompleto(Cliente.getNomeCompleto());
+		if(cliente.getNomeCompleto() != null) {
+			clienteNoBanco.setNomeCompleto(cliente.getNomeCompleto());
 		}
 		
-		if(Cliente.getNomeUsuario() != null) {
-			ClienteNoBanco.setNomeUsuario(Cliente.getNomeUsuario());
+		if(cliente.getNomeUsuario() != null) {
+			clienteNoBanco.setNomeUsuario(cliente.getNomeUsuario());
 		}
 		
-		if(Cliente.getCpf() != null) {
-			ClienteNoBanco.setCpf(Cliente.getCpf());
+		if(cliente.getCpf() != null) {
+			clienteNoBanco.setCpf(cliente.getCpf());
 		}
 		
-		if(Cliente.getDataNascimento() != null) {
-			ClienteNoBanco.setDataNascimento(Cliente.getDataNascimento());
+		if(cliente.getDataNascimento() != null) {
+			clienteNoBanco.setDataNascimento(cliente.getDataNascimento());
 		}
 		
-		if(Cliente.getEmail() != null) {
-			ClienteNoBanco.setEmail(Cliente.getEmail());
+		if(cliente.getEmail() != null) {
+			clienteNoBanco.setEmail(cliente.getEmail());
 		}
 		
-		if(Cliente.getSenha() != null) {
-			ClienteNoBanco.setSenha(Cliente.getSenha());
+		if(cliente.getSenha() != null) {
+			clienteNoBanco.setSenha(cliente.getSenha());
 		}
 		
-		if(Cliente.getTelefone() != null) {
-			ClienteNoBanco.setTelefone(Cliente.getTelefone());
+		if(cliente.getTelefone() != null) {
+			clienteNoBanco.setTelefone(cliente.getTelefone());
 		}
 		
-		return clienteRepository.save(ClienteNoBanco);
+		return clienteRepository.save(clienteNoBanco);
 	}
 	
 	public void deletar(Integer codigo) throws ClienteNotFoundException{

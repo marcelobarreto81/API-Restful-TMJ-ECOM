@@ -22,7 +22,7 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer codigoProduto;
 	
-	@Column(name="NOME_COMPLETO", nullable = false, length = 255)
+	@Column(name="NOME", nullable = false, length = 255)
 	private String nome;
 	
 	@Column(name="DESCRICAO", nullable = false, length = 255)
