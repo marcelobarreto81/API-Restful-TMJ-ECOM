@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.serratec.backend.projetoFinal.exception.ParametroObrigatorioException;
 import org.serratec.backend.projetoFinal.exception.ProdutoNotFoundException;
-import org.serratec.backend.projetoFinal.model.Cliente;
 import org.serratec.backend.projetoFinal.model.Produto;
 import org.serratec.backend.projetoFinal.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +39,12 @@ public class ProdutoService {
 		
 		Produto produtoNoBanco = listarPorCodigo(codigo);
 		
-		if(produto.getCodigoFuncionario() != null) {
-			produtoNoBanco.setCodigoFuncionario(produto.getCodigoFuncionario());
+		if(produto.getFuncionario() != null) {
+			produtoNoBanco.setFuncionario(produto.getFuncionario());
 		}
 		
-		if(produto.getCodigoPedido() != null) {
-			produtoNoBanco.setCodigoPedido(produto.getCodigoPedido());
+		if(produto.getCategoria() != null) {
+			produtoNoBanco.setCategoria(produto.getCategoria());
 		}
 		
 		if(produto.getCodigoProduto() != null) {

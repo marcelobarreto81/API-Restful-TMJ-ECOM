@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,12 +40,27 @@ public class Produto {
 	@Column(name="VALOR_UNITARIO", nullable = false)
 	private Double valorUnitario;
 	
-	@Column(name="CODIGO_PEDIDO", nullable = false)
-	private Integer codigoPedido;
+	@ManyToOne
+	private Categoria categoria;
 	
-	@Column(name="CODIGO_FUNCIONARIO", nullable = false)
-	private Integer codigoFuncionario;
+	@ManyToOne
+	private Funcionario funcionario;
 	
+	public Produto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Produto(String nome, String descricao, Integer quantidadeEstoque, Date dataFabricacao, Double valorUnitario,
+			Categoria categoria, Funcionario funcionario) {
+		super();
+		this.nome = nome;
+		this.descricao = descricao;
+		this.quantidadeEstoque = quantidadeEstoque;
+		this.dataFabricacao = dataFabricacao;
+		this.valorUnitario = valorUnitario;
+		this.categoria = categoria;
+		this.funcionario = funcionario;
+	}
 	public Integer getCodigoProduto() {
 		return codigoProduto;
 	}
@@ -81,17 +97,17 @@ public class Produto {
 	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
-	public Integer getCodigoPedido() {
-		return codigoPedido;
+	public Categoria getCategoria() {
+		return categoria;
 	}
-	public void setCodigoPedido(Integer codigoPedido) {
-		this.codigoPedido = codigoPedido;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
-	public Integer getCodigoFuncionario() {
-		return codigoFuncionario;
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
-	public void setCodigoFuncionario(Integer codigoFuncionario) {
-		this.codigoFuncionario = codigoFuncionario;
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 	
 }

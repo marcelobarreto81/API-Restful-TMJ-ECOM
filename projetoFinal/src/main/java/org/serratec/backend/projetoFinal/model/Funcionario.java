@@ -1,10 +1,13 @@
 package org.serratec.backend.projetoFinal.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +23,9 @@ public class Funcionario {
 	
 	@Column(name="CPF", nullable = false, length = 14)
 	private String cpf;
+	
+	@OneToMany
+	private List<Produto> produtos;
 	
 	public Integer getCodigoFuncionario() {
 		return codigoFuncionario;
@@ -38,5 +44,11 @@ public class Funcionario {
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 }

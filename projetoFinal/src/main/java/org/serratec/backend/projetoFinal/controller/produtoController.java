@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.serratec.backend.projetoFinal.exception.ParametroObrigatorioException;
 import org.serratec.backend.projetoFinal.exception.ProdutoNotFoundException;
+import org.serratec.backend.projetoFinal.form.ProdutoForm;
 import org.serratec.backend.projetoFinal.model.Produto;
+import org.serratec.backend.projetoFinal.repository.CategoriaRepository;
+import org.serratec.backend.projetoFinal.repository.FuncionarioRepository;
 import org.serratec.backend.projetoFinal.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +27,14 @@ public class produtoController {
 	
 	@Autowired
 	private ProdutoService produtoService;
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+	@Autowired
+	private FuncionarioRepository funcionarioRepository;
 	
 	@PostMapping
-	public ResponseEntity<Void> inserir(@RequestBody Produto produto) {
+	public ResponseEntity<Void> inserir(@RequestBody ProdutoForm produtoForm) {
+		Produto produto = produtoForm.converte(categoriaRepository, funcionarioRepository);
 		produtoService.inserir(produto);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
