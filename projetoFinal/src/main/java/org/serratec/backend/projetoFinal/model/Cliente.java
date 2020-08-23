@@ -2,11 +2,14 @@ package org.serratec.backend.projetoFinal.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,7 +47,26 @@ public class Cliente {
 	
 	@Column(name="TELEFONE", nullable = false, length = 17)  
  	private String telefone;
+
+	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	private Endereco endereco;
 	
+	public Cliente() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Cliente(String nomeCompleto, String nomeUsuario, String email, String senha, String cpf, Date dataNascimento,
+			String telefone, Endereco endereco) {
+		super();
+		this.nomeCompleto = nomeCompleto;
+		this.nomeUsuario = nomeUsuario;
+		this.email = email;
+		this.senha = senha;
+		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
+		this.telefone = telefone;
+		this.endereco = endereco;
+	}
 	public Integer getCodigoCliente() {
 		return codigoCliente;
 	}
@@ -92,5 +114,11 @@ public class Cliente {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 }
