@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.serratec.backend.projetoFinal.exception.ClienteNotFoundException;
 import org.serratec.backend.projetoFinal.exception.ParametroObrigatorioException;
+import org.serratec.backend.projetoFinal.form.ClienteForm;
 import org.serratec.backend.projetoFinal.model.Cliente;
+import org.serratec.backend.projetoFinal.repository.EnderecoRepository;
 import org.serratec.backend.projetoFinal.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,10 +26,13 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteService clienteService;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	@PostMapping
-	public ResponseEntity<Void> inserir(@RequestBody Cliente cliente) {
-		clienteService.inserir(cliente);
+	public ResponseEntity<Void> inserir(@RequestBody ClienteForm cliente) {
+		Cliente novo = cliente.converte(enderecoRepository);
+		clienteService.inserir(novo);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	

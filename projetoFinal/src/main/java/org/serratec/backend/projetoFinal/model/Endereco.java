@@ -1,13 +1,13 @@
 package org.serratec.backend.projetoFinal.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -39,31 +39,14 @@ public class Endereco {
 	@Column(name="ESTADO", nullable = false, length = 2)
 	private String estado;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cliente_codigo_cliente")
-	private Cliente cliente;
+	@OneToMany
+	private List<Cliente> cliente;
 	
-	public Endereco() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Endereco(String cep, String rua, Integer numero, String complemento, String bairro, String cidade,
-			String estado, Cliente cliente) {
-		super();
-		this.cep = cep;
-		this.rua = rua;
-		this.numero = numero;
-		this.complemento = complemento;
-		this.bairro = bairro;
-		this.cidade = cidade;
-		this.estado = estado;
-		this.cliente = cliente;
-	}
 	
-	public Cliente getCliente() {
+	public List<Cliente> getCliente() {
 		return cliente;
 	}
-	public void setCliente(Cliente cliente) {
+	public void setCliente(List<Cliente> cliente) {
 		this.cliente = cliente;
 	}
 	public String getCep() {
@@ -113,7 +96,5 @@ public class Endereco {
 	}
 	public void setCodigoEndereco(Integer codigoEndereco) {
 		this.codigoEndereco = codigoEndereco;
-	}
-	
-	
+	}	
 }
