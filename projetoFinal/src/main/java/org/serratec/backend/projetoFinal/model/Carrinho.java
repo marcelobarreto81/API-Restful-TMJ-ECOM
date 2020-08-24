@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -13,7 +14,8 @@ import javax.persistence.Table;
 public class Carrinho {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "carrinho-generator")
+	@SequenceGenerator(name = "carrinho-generator", sequenceName = "car_seq")
 	private Integer id;
 	@Column(name="CODIGO_PRODUTO")
 	private Integer codigoProduto;

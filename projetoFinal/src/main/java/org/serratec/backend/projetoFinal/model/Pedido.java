@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,7 +24,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 public class Pedido {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido-generator")
+	@SequenceGenerator(name = "pedido-generator", sequenceName = "ped_seq")
 	private Integer codigoPedido;
 	
 	@Column(name="DATA_PEDIDO")

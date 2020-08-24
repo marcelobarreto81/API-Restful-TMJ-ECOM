@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +16,8 @@ import javax.persistence.Table;
 public class Funcionario {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario-generator")
+	@SequenceGenerator(name = "funcionario-generator", sequenceName = "fun_seq")
 	private Integer codigoFuncionario;
 	
 	@Column(name="NOME", nullable = false, length = 255)

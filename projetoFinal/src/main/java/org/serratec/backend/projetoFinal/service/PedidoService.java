@@ -6,9 +6,12 @@ import java.util.Optional;
 import org.serratec.backend.projetoFinal.exception.EstoqueException;
 import org.serratec.backend.projetoFinal.exception.ParametroObrigatorioException;
 import org.serratec.backend.projetoFinal.exception.PedidoNotFoundException;
+import org.serratec.backend.projetoFinal.model.Carrinho;
 import org.serratec.backend.projetoFinal.model.Pedido;
+import org.serratec.backend.projetoFinal.model.Produto;
 import org.serratec.backend.projetoFinal.repository.CarrinhoRepository;
 import org.serratec.backend.projetoFinal.repository.PedidoRepository;
+import org.serratec.backend.projetoFinal.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,8 @@ public class PedidoService {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private CarrinhoRepository carrinhoRepository;
+	@Autowired
+	private ProdutoRepository produtoRepository;
 	
 	public Pedido inserir(Pedido pedido) throws EstoqueException{
 		for (int i = 0; i < pedido.getListaProdutos().size(); i++) {
@@ -49,6 +54,9 @@ public class PedidoService {
 		if(pedido == null) throw new ParametroObrigatorioException("Campo 'Pedido' é obrigatório");
 		
 		Pedido pedidoNoBanco = listarPorCodigo(codigo);
+		List<Carrinho> carrinhoNoBanco = pedidoNoBanco.getCarrinho();
+		Double valor = 0.0;
+		Integer qtd = 0;
 				
 		if(pedido.getCodigoPedido() != null) {
 			pedidoNoBanco.setCodigoPedido(pedido.getCodigoPedido());
@@ -62,11 +70,29 @@ public class PedidoService {
 			pedidoNoBanco.setValor(pedido.getValor());
 		}
 		
+		for(int i = 0; i<pedido.getCarrinho().size();i++) {
+			if(carrinhoNoBanco.get(i).getCodigoProduto() != pedido.getCarrinho().get(i).getCodigoProduto()) {
+				carrinhoNoBanco.get(i).setCodigoProduto(pedido.getCarrinho().get(i).getCodigoProduto());	
+			}
+			
+			if(carrinhoNoBanco.get(i).getQuantidade() != pedido.getCarrinho().get(i).getQuantidade())
+				carrinhoNoBanco.get(i).setQuantidade(pedido.getCarrinho().get(i).getQuantidade());
+			
+			valor = valor + pedidoNoBanco.getListaProdutos().get(i).getValorUnitario() * carrinhoNoBanco.get(i).getQuantidade();
+			qtd += pedido.getCarrinho().get(i).getQuantidade();
+		}
+		
+		pedidoNoBanco.setValor(valor);
+		pedidoNoBanco.setQtdItens(qtd);
 		return pedidoRepository.save(pedidoNoBanco);
 	}
 	
 	public void deletar(Integer codigo) throws PedidoNotFoundException{
 		Pedido pedidoNoBanco = listarPorCodigo(codigo);
+		for(int i = 0; i<pedidoNoBanco.getListaProdutos().size();i++) {
+			Optional<Produto> produto = produtoRepository.findByCodigoProduto(pedidoNoBanco.getCarrinho().get(i).getCodigoProduto());
+			produto.get().setQuantidadeEstoque(produto.get().getQuantidadeEstoque() + pedidoNoBanco.getCarrinho().get(i).getQuantidade());
+		}
 		pedidoRepository.delete(pedidoNoBanco);
 	}
 }

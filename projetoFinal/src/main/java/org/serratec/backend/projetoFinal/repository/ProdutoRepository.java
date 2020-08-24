@@ -9,6 +9,6 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
 
 	Optional<Produto> findByCodigoProduto(Integer produto);
 
-	boolean findByNome(String nome);
+	Optional<Produto> findByNome(String nome);
 
 }

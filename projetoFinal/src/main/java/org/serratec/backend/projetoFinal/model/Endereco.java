@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +16,8 @@ import javax.persistence.Table;
 public class Endereco {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco-generator")
+	@SequenceGenerator(name = "endereco-generator", sequenceName = "end_seq")
 	private Integer codigoEndereco;
 	
 	@Column(name="CEP", nullable = false, length = 10)
