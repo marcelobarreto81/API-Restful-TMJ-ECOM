@@ -71,6 +71,7 @@ public class EnderecoService {
 		}
 	
 		public void deletar(Integer codigo) throws EnderecoNotFoundException{
+			//Para deletar é preciso verificar se o endereço está vinculado com um cliente
 			Endereco enderecoNoBanco = listarPorCodigo(codigo);
 			enderecoRepository.delete(enderecoNoBanco);
 		}

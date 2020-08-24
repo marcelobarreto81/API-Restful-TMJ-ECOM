@@ -3,6 +3,7 @@ package org.serratec.backend.projetoFinal.controller;
 import java.util.List;
 
 import org.serratec.backend.projetoFinal.exception.ParametroObrigatorioException;
+import org.serratec.backend.projetoFinal.exception.ProdutoExisteException;
 import org.serratec.backend.projetoFinal.exception.ProdutoNotFoundException;
 import org.serratec.backend.projetoFinal.form.ProdutoForm;
 import org.serratec.backend.projetoFinal.model.Produto;
@@ -33,7 +34,7 @@ public class produtoController {
 	private FuncionarioRepository funcionarioRepository;
 	
 	@PostMapping
-	public ResponseEntity<Void> inserir(@RequestBody ProdutoForm produtoForm) {
+	public ResponseEntity<Void> inserir(@RequestBody ProdutoForm produtoForm) throws ProdutoExisteException {
 		Produto produto = produtoForm.converte(categoriaRepository, funcionarioRepository);
 		produtoService.inserir(produto);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);

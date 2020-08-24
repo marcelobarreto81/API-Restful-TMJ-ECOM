@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.serratec.backend.projetoFinal.exception.ParametroObrigatorioException;
+import org.serratec.backend.projetoFinal.exception.ProdutoExisteException;
 import org.serratec.backend.projetoFinal.exception.ProdutoNotFoundException;
 import org.serratec.backend.projetoFinal.model.Produto;
 import org.serratec.backend.projetoFinal.repository.ProdutoRepository;
@@ -16,7 +17,8 @@ public class ProdutoService {
 	@Autowired
 	ProdutoRepository produtoRepository;
 	
-	public Produto inserir(Produto produto) {
+	public Produto inserir(Produto produto) throws ProdutoExisteException {
+		if(produtoRepository.findByNome(produto.getNome())) throw new ProdutoExisteException("O produto "+produto.getNome()+" já existe");
 		return produtoRepository.save(produto);
 	}
 	
