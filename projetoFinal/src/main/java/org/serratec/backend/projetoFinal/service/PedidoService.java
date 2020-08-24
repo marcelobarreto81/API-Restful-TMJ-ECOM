@@ -3,9 +3,11 @@ package org.serratec.backend.projetoFinal.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.serratec.backend.projetoFinal.exception.EstoqueException;
 import org.serratec.backend.projetoFinal.exception.ParametroObrigatorioException;
 import org.serratec.backend.projetoFinal.exception.PedidoNotFoundException;
 import org.serratec.backend.projetoFinal.model.Pedido;
+import org.serratec.backend.projetoFinal.repository.CarrinhoRepository;
 import org.serratec.backend.projetoFinal.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,18 @@ import org.springframework.stereotype.Service;
 public class PedidoService {
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	@Autowired
+	private CarrinhoRepository carrinhoRepository;
 	
-	public Pedido inserir(Pedido pedido) {
+	public Pedido inserir(Pedido pedido) throws EstoqueException{
+		for (int i = 0; i < pedido.getListaProdutos().size(); i++) {
+			Integer getEstoque = pedido.getListaProdutos().get(i).getQuantidadeEstoque();
+			Integer getQuantidade = pedido.getCarrinho().get(i).getQuantidade();
+			if(getEstoque < getQuantidade) {
+				throw new EstoqueException("Estoque insuficiente, só temos "+getEstoque);
+			} pedido.getListaProdutos().get(i).setQuantidadeEstoque(getEstoque - getQuantidade);
+			carrinhoRepository.save(pedido.getCarrinho().get(i));
+		}
 		return pedidoRepository.save(pedido);
 	}
 	

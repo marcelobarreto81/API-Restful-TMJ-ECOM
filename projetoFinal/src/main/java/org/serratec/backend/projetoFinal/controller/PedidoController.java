@@ -2,6 +2,7 @@ package org.serratec.backend.projetoFinal.controller;
 
 import java.util.List;
 
+import org.serratec.backend.projetoFinal.exception.EstoqueException;
 import org.serratec.backend.projetoFinal.exception.ParametroObrigatorioException;
 import org.serratec.backend.projetoFinal.exception.PedidoNotFoundException;
 import org.serratec.backend.projetoFinal.form.PedidoForm;
@@ -33,7 +34,7 @@ public class PedidoController {
 	private ProdutoRepository produtoRepository;
 	
 	@PostMapping
-	public ResponseEntity<Void> inserir(@RequestBody PedidoForm pedidoForm) {
+	public ResponseEntity<Void> inserir(@RequestBody PedidoForm pedidoForm) throws EstoqueException{
 		Pedido pedido = pedidoForm.converte(clienteRepository, produtoRepository);
 		pedidoService.inserir(pedido);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);

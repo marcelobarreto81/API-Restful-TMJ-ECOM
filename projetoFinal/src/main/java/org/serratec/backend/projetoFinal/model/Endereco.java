@@ -43,12 +43,12 @@ public class Endereco {
 	private List<Cliente> cliente;
 	
 	
-	public List<Cliente> getCliente() {
-		return cliente;
-	}
-	public void setCliente(List<Cliente> cliente) {
-		this.cliente = cliente;
-	}
+//	public List<Cliente> getCliente() {
+//		return cliente;
+//	}
+//	public void setCliente(List<Cliente> cliente) {
+//		this.cliente = cliente;
+//	}
 	public String getCep() {
 		return cep;
 	}

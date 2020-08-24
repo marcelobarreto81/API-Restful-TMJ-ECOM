@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,13 +33,17 @@ public class Pedido {
 	
 	@Column(name="VALOR")
 	private Double valor;
-		
-	@ManyToOne
-	private Cliente cliente;
 	
+	@Column(name="QTD_ITENS")
 	private Integer qtdItens;
 	
 	@OneToMany
+	private List<Carrinho> carrinho;
+	
+	@ManyToOne
+	private Cliente cliente;
+	
+	@ManyToMany
 	private List<Produto> listaProdutos;
 
 	public Pedido() {
@@ -46,13 +51,14 @@ public class Pedido {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Pedido(Date dataPedido, Double valor, Cliente cliente, Integer qtdItens, List<Produto> listaProdutos) {
+	public Pedido(Date dataPedido, Double valor, Cliente cliente, Integer qtdItens, List<Produto> listaProdutos, List<Carrinho> carrinho) { 
 		super();
 		this.dataPedido = dataPedido;
 		this.valor = valor;
 		this.cliente = cliente;
 		this.qtdItens = qtdItens;
 		this.listaProdutos = listaProdutos;
+		this.carrinho = carrinho;
 	}
 
 	public Integer getCodigoPedido() {
@@ -102,5 +108,12 @@ public class Pedido {
 	public void setListaProdutos(List<Produto> listaProdutos) {
 		this.listaProdutos = listaProdutos;
 	}
-	
+
+	public List<Carrinho> getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(List<Carrinho> carrinho) {
+		this.carrinho = carrinho;
+	}	
 }
