@@ -37,11 +37,7 @@ public class PedidoService {
 		if(pedido == null) throw new ParametroObrigatorioException("Campo 'Pedido' é obrigatório");
 		
 		Pedido pedidoNoBanco = listarPorCodigo(codigo);
-		
-		if(pedido.getCodigoCliente() != null) {
-			pedidoNoBanco.setCodigoCliente(pedido.getCodigoCliente());
-		}
-		
+				
 		if(pedido.getCodigoPedido() != null) {
 			pedidoNoBanco.setCodigoPedido(pedido.getCodigoPedido());
 		}
